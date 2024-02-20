@@ -17,12 +17,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 import java.util.TreeMap;
-
+/**
+ * @author RainbowX
+ * 注入类 CannerBottleRecipeSerializer
+ */
 @Mixin({CannerBottleRecipeSerializer.class})
 public abstract class CannerBottleRecipeSerializerMixin {
     @Unique
     private static final Map<Identifier, String> mp = new TreeMap<>();
 
+    /**
+     * 影子方法
+     * 从json对象中读取指定合成表
+     * @param id 合成表的路径
+     * @param json json对象
+     * @return 合成表
+     */
     @Shadow
     public abstract RecipeHolder<IRecipeInput, Integer> read(Identifier id, JsonObject json);
 

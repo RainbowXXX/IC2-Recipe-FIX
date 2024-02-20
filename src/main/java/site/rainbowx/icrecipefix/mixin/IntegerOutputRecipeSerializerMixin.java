@@ -18,11 +18,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @author RainbowX
+ * 注入类 IntegerOutputRecipeSerializer
+ */
 @Mixin({IntegerOutputRecipeSerializer.class})
 public abstract class IntegerOutputRecipeSerializerMixin {
     @Unique
     private static final Map<Identifier, String> mp = new TreeMap<>();
 
+    /**
+     * 影子方法
+     * 从json对象中读取指定合成表
+     * @param id 合成表的路径
+     * @param json json对象
+     * @return 合成表
+     */
     @Shadow public abstract RecipeHolder<IRecipeInput, Integer> read(Identifier id, JsonObject json);
 
     @Inject(at = @At(value = "TAIL"), method = "read(Lnet/minecraft/util/Identifier;Lcom/google/gson/JsonObject;)Lic2/core/recipe/v2/RecipeHolder;")
