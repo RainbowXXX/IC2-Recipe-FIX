@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "icrecipefix",
+  "version": "${version}",
+  "name": "ICRecipeFix",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/yan32/ICRecipeFix"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/icrecipefix/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "site.rainbowx.icrecipefix.client.ICRecipeFixClient"
+    ],
+    "main": [
+      "site.rainbowx.icrecipefix.ICRecipeFix"
+    ]
+  },
+  "mixins": [
+    "icrecipefix.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
