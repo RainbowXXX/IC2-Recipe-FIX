@@ -24,7 +24,7 @@ public abstract class AdvShapelessRecipeSerializerMixin {
     @Shadow
     public abstract AdvShapelessRecipe read(Identifier id, JsonObject json);
 
-    @Inject(at = @At(value = "TAIL"), method = "Lic2/core/recipe/AdvShapelessRecipe$Serializer;read(Lnet/minecraft/util/Identifier;Lcom/google/gson/JsonObject;)Lic2/core/recipe/AdvShapelessRecipe;")
+    @Inject(at = @At(value = "TAIL"), method = "read(Lnet/minecraft/util/Identifier;Lcom/google/gson/JsonObject;)Lic2/core/recipe/AdvShapelessRecipe;")
     public void afterReadJson(Identifier id, JsonObject json, CallbackInfoReturnable<AdvShapelessRecipe> ci) {
         AdvShapelessRecipe ret = ci.getReturnValue();
         if(!mp.containsKey(ret.getId())) {
@@ -32,7 +32,7 @@ public abstract class AdvShapelessRecipeSerializerMixin {
         }
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "Lic2/core/recipe/AdvShapelessRecipe$Serializer;read(Lnet/minecraft/util/Identifier;Lnet/minecraft/network/PacketByteBuf;)Lic2/core/recipe/AdvShapelessRecipe;", cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "read(Lnet/minecraft/util/Identifier;Lnet/minecraft/network/PacketByteBuf;)Lic2/core/recipe/AdvShapelessRecipe;", cancellable = true)
     public void beforeReadBuf(Identifier id, PacketByteBuf buf, CallbackInfoReturnable<AdvShapelessRecipe> ci) {
         String jsonStr = buf.readString();
         JsonObject obj = JsonHelper.deserialize(jsonStr);
@@ -40,7 +40,7 @@ public abstract class AdvShapelessRecipeSerializerMixin {
         ci.cancel();
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "Lic2/core/recipe/AdvShapelessRecipe$Serializer;write(Lnet/minecraft/network/PacketByteBuf;Lic2/core/recipe/AdvShapelessRecipe;)V", cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "write(Lnet/minecraft/network/PacketByteBuf;Lic2/core/recipe/AdvShapelessRecipe;)V", cancellable = true)
     public void beforeWriteBuf(PacketByteBuf buf, AdvShapelessRecipe recipe, CallbackInfo ci) {
         String str = mp.get(recipe.getId());
         buf.writeString(str);

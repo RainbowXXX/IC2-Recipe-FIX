@@ -26,7 +26,7 @@ public abstract class CannerBottleRecipeSerializerMixin {
     @Shadow
     public abstract RecipeHolder<IRecipeInput, Integer> read(Identifier id, JsonObject json);
 
-    @Inject(at = @At(value = "TAIL"), method = "Lic2/core/recipe/v2/CannerBottleRecipeSerializer;read(Lnet/minecraft/util/Identifier;Lcom/google/gson/JsonObject;)Lic2/core/recipe/v2/RecipeHolder;")
+    @Inject(at = @At(value = "TAIL"), method = "read(Lnet/minecraft/util/Identifier;Lcom/google/gson/JsonObject;)Lic2/core/recipe/v2/RecipeHolder;")
     public void afterReadJson(Identifier id, JsonObject json, CallbackInfoReturnable<RecipeHolder<IRecipeInput, Integer>> ci) {
         RecipeHolder<IRecipeInput, Integer> ret = ci.getReturnValue();
         if(!mp.containsKey(ret.getId())) {
@@ -34,7 +34,7 @@ public abstract class CannerBottleRecipeSerializerMixin {
         }
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "Lic2/core/recipe/v2/CannerBottleRecipeSerializer;read(Lnet/minecraft/util/Identifier;Lnet/minecraft/network/PacketByteBuf;)Lic2/core/recipe/v2/RecipeHolder;", cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "read(Lnet/minecraft/util/Identifier;Lnet/minecraft/network/PacketByteBuf;)Lic2/core/recipe/v2/RecipeHolder;", cancellable = true)
     public void beforeReadBuf(Identifier id, PacketByteBuf buf, CallbackInfoReturnable<RecipeHolder<IRecipeInput, Integer>> ci) {
         String jsonStr = buf.readString();
         JsonObject obj = JsonHelper.deserialize(jsonStr);
@@ -42,7 +42,7 @@ public abstract class CannerBottleRecipeSerializerMixin {
         ci.cancel();
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "Lic2/core/recipe/v2/CannerBottleRecipeSerializer;write(Lnet/minecraft/network/PacketByteBuf;Lic2/core/recipe/v2/RecipeHolder;)V", cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "write(Lnet/minecraft/network/PacketByteBuf;Lic2/core/recipe/v2/RecipeHolder;)V", cancellable = true)
     public void beforeWriteBuf(PacketByteBuf buf, RecipeHolder<IRecipeInput, Integer> recipe, CallbackInfo ci) {
         String str = mp.get(recipe.getId());
         buf.writeString(str);
