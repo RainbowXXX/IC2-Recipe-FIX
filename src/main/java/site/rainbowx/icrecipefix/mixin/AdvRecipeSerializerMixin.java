@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,7 +18,8 @@ import java.util.TreeMap;
 
 @Mixin(AdvRecipe.Serializer.class)
 public abstract class AdvRecipeSerializerMixin {
-    private static Map<Identifier, String> mp = new TreeMap<>();
+    @Unique
+    private static final Map<Identifier, String> mp = new TreeMap<>();
 
     @Shadow
     public abstract AdvRecipe read(Identifier id, JsonObject json);

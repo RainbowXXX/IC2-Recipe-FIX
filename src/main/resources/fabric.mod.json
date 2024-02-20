@@ -4,12 +4,11 @@
   "version": "${version}",
   "name": "ICRecipeFix",
   "description": "",
-  "authors": [],
+  "authors": ["RainbowX"],
   "contact": {
     "repo": "https://github.com/yan32/ICRecipeFix"
   },
   "license": "Apache-2.0",
-  "icon": "assets/icrecipefix/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
